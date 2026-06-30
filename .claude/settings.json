@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run build)",
+      "Bash(npm run test:*)",
+      "Bash(npm test)",
+      "Bash(npx ng generate:*)",
+      "Bash(npx ng g:*)",
+      "Bash(npx ng lint:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx prettier:*)",
+      "Read(//home/user/AngularDeveloper/template-reference/**)"
+    ],
+    "deny": [
+      "Edit(//home/user/AngularDeveloper/template-reference/**)",
+      "Write(//home/user/AngularDeveloper/template-reference/**)"
+    ]
+  }
+}
