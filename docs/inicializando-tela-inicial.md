@@ -73,12 +73,35 @@ Copy-Item -Recurse -Force "$cfg\docs"      $proj
 
 ## 4. (Opcional) Limpar o `.claude\settings.json`
 
-O `settings.json` tem duas linhas com caminhos **absolutos do ambiente remoto**
-(`.../template-reference/...`). São **inofensivas** na sua máquina (o caminho não
-existe, então nunca casam), mas se quiser deixar limpo, abra
-`shell-test\.claude\settings.json` e remova as duas entradas que mencionam
-`template-reference` (uma em `allow`, uma em `deny`). Mantenha o restante
-(permissões de `npm run lint`, `ng generate`, etc.).
+O `settings.json` tem **3 linhas** com caminhos absolutos do ambiente remoto
+(`.../template-reference/...`) — 1 em `allow` e 2 em `deny`. São **inofensivas**
+na sua máquina (o caminho não existe, então nunca casam), mas se quiser deixar
+limpo, substitua o conteúdo de `shell-test\.claude\settings.json` por:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run build)",
+      "Bash(npm run test:*)",
+      "Bash(npm test)",
+      "Bash(npx ng generate:*)",
+      "Bash(npx ng g:*)",
+      "Bash(npx ng lint:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx prettier:*)"
+    ],
+    "deny": []
+  }
+}
+```
+
+Pontos de atenção:
+- A última linha do `allow` (`"Bash(npx prettier:*)"`) fica **sem vírgula** no
+  final — remover a linha do `Read` deixaria uma vírgula órfã e quebraria o JSON.
+- O `deny` vazio (`[]`) é **válido e esperado** — não desativa nada.
 
 ## 5. Abrir no VSCode e rodar o comando
 
