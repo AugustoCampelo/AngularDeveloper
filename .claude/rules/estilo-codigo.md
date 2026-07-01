@@ -83,6 +83,29 @@ import { ToastrService } from 'ngx-toastr';
   justificativa.
 - Não deixe `console.log` nem código morto.
 
+### Regras exatas do ESLint (`eslint.config.mjs` real)
+
+Extends: `eslint:recommended`, `@typescript-eslint/recommended`,
+`@angular-eslint/recommended` (+ `template/recommended` e
+`template/process-inline-templates`). Regras customizadas relevantes:
+
+- **`component-selector`**: elemento, prefixo `app`, **kebab-case** →
+  `selector: 'app-helpdesk-customer'`.
+- **`directive-selector`**: atributo, prefixo `app`, **camelCase** →
+  `selector: '[appHighlight]'`.
+- **`component-class-suffix`: `off`** → a classe **não** precisa terminar em
+  `Component` (o template mistura `AdminLayout` e `HelpdeskCustomerComponent`).
+  Prefira o sufixo `Component` em telas novas por clareza, mas não é erro omiti-lo.
+- `@typescript-eslint/recommended`: evite `any` (regra ativa), sem variáveis/
+  imports sem uso.
+
+### Prettier (`.prettierrc` real) — escreva já nesse formato
+
+`printWidth: 140` · `singleQuote: true` · **`trailingComma: "none"`** ·
+`tabWidth: 2` · `useTabs: false` · `bracketSpacing: true` · `bracketSameLine: false` ·
+`htmlWhitespaceSensitivity: "ignore"` · `endOfLine: "lf"`.
+→ Aspas simples, **sem trailing comma**, linhas até ~140 colunas, 2 espaços.
+
 ## TypeScript / compilador (do `tsconfig` real)
 
 - `strict: true`, mas `strictTemplates: false` e `useDefineForClassFields: false`.
