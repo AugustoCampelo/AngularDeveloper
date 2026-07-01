@@ -18,6 +18,7 @@ interfaces de usuário em **Angular + TypeScript** sobre o template proprietári
 | `.claude/rules/stack-mantis.md` | Libs, `<app-card>`, ng-bootstrap, ícones, layouts. |
 | `.claude/rules/patterns-gof.md` | Quando/como aplicar cada pattern do GoF. |
 | `.claude/agents/ui-builder.md` | Subagente especialista em criar telas. |
+| `.claude/commands/tela-inicial.md` | Comando `/tela-inicial` (casca inicial em branco). |
 | `.claude/commands/nova-tela.md` | Comando `/nova-tela <nome>`. |
 | `.claude/commands/novo-componente.md` | Comando `/novo-componente <nome>`. |
 | `.claude/settings.json` | Permissões (lint/build/generate) e proteção do reference. |
@@ -26,6 +27,7 @@ interfaces de usuário em **Angular + TypeScript** sobre o template proprietári
 
 ## Como usar neste repositório
 
+- `/tela-inicial` — gera a casca em branco (barra superior + menu retrátil vazio + centro vazio).
 - `/nova-tela clientes crud` — gera uma tela de listagem/CRUD.
 - `/novo-componente kpi-card` — gera um componente de apresentação.
 - Ou peça em linguagem natural; o subagente `ui-builder` é acionado para telas.

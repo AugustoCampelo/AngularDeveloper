@@ -7,6 +7,17 @@ projeto — adapte ao domínio.
 
 > Caminho-base: `template-reference/app/`
 
+## 0. Tela inicial / casca em branco do sistema
+**Comando:** `/tela-inicial` · **Referências:**
+- `theme/layout/admin-layout/` — barra superior (`nav-bar/`) + menu lateral
+  retrátil (`navigation/`) + `<router-outlet>`.
+- `theme/layout/admin-layout/navigation/navigation.ts` — dados do menu (para a
+  casca inicial, este array fica **vazio**: `NavigationItems: NavigationItem[] = []`).
+
+Entrega o esqueleto de arranque: barra superior + menu retrátil vazio + área
+central vazia. A barra e o comportamento retrátil **vêm do `admin-layout`** — não
+recrie; apenas zere `navigation.ts` e adicione uma `home` vazia.
+
 ## 1. Lista / CRUD com busca, ordenação e paginação ⭐
 **Referência:** `demo/admin-panel/helpdesk/helpdesk-customer/`
 - `helpdesk-customer.component.ts` — Controller fino: injeta o service, expõe

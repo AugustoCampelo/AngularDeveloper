@@ -1,40 +1,48 @@
-# Tela gerada (teste): Dashboard Default
+# Tela inicial (casca em branco do sistema)
 
-Saída de teste da configuração. Gerada a partir de
-`template-reference/app/demo/dashboard/default`, **refatorada** para seguir as
-regras do repositório (MVC adaptado, Facade + Observer, tipos e dados separados).
+Saída do comando `/tela-inicial`. Entrega o **esqueleto de arranque** de um
+projeto Mantis, sem conteúdo de demonstração:
 
-> Destino: **colar num projeto Mantis real** (não compila aqui, pois este repo
-> não é um app Angular).
+- **Barra superior** — vem do `admin-layout` (não é recriada).
+- **Menu lateral retrátil vazio** — sem itens/sub-itens.
+- **Área central vazia** — sem cards/informação.
 
-## Onde colar
+> Destino: **colar num projeto Mantis real** (este repo não é um app Angular).
 
-Copie os arquivos de `generated/dashboard/default/` para, no projeto-alvo:
+## Arquivos e onde colar
 
 ```
-src/app/demo/dashboard/default/
-├── default.component.ts
-├── default.component.html
-├── default.component.scss
-├── default.service.ts        # NOVO (Facade)
-├── default-type.ts           # NOVO (Model: interfaces)
-└── default-data.ts           # NOVO (Model: mock; substitui o fake-data JSON)
+generated/shell/
+├── navigation.ts          → src/app/theme/layout/admin-layout/navigation/navigation.ts   (SUBSTITUI)
+└── home/                   → src/app/demo/home/                                            (NOVO)
+    ├── home.component.ts
+    ├── home.component.html
+    └── home.component.scss
 ```
 
-Os imports usam o caminho absoluto `src/app/...` (convenção do Mantis), então
-resolvem assim que estiverem dentro de um projeto Mantis.
+- **`navigation.ts`**: substitui o do template. Mantém a interface
+  `NavigationItem` e define `NavigationItems: NavigationItem[] = []` (menu zerado).
+  Há um exemplo comentado no topo mostrando a forma `group → collapse → item`
+  para você preencher.
+- **`home/`**: a área central vazia (componente fino, template só com um
+  contêiner e comentário).
 
-## Cabeçalho + menu retrátil (já existem no template)
+## Barra superior + menu retrátil (já existem)
 
-O **cabeçalho** (top bar) e o **menu lateral retrátil** **não** fazem parte
-desta tela — vêm do `admin-layout`, que todo projeto Mantis já possui:
+Ambos são fornecidos pelo `admin-layout`, que todo projeto Mantis já tem:
 
-- `theme/layout/admin-layout/nav-bar/` → cabeçalho (com toggle do menu).
-- `theme/layout/admin-layout/navigation/` → menu lateral retrátil.
-- `admin-layout.component` compõe `nav-bar` + `navigation` + `<router-outlet>`.
+- `theme/layout/admin-layout/nav-bar/` → **barra superior** (com o botão que
+  recolhe/expande o menu).
+- `theme/layout/admin-layout/navigation/` → **menu lateral retrátil**, que
+  renderiza os itens de `navigation.ts` (agora vazio → menu em branco, mas
+  ainda retrátil).
 
-Esta tela renderiza **dentro** do `<router-outlet>` do `admin-layout`. A rota já
-existe no `app-routing.module.ts` do Mantis:
+Nada a recriar aqui — apenas zeramos os dados do menu.
+
+## Rota (mostrar a home dentro da casca)
+
+Registre a `home` como filha do `AdminLayout` para herdar barra + menu. No
+`app-routing.module.ts` do projeto:
 
 ```ts
 {
@@ -43,41 +51,21 @@ existe no `app-routing.module.ts` do Mantis:
   canActivateChild: [AuthGuardChild],
   children: [
     {
-      path: 'dashboard',
-      loadChildren: () => import('./demo/dashboard/dashboard.module').then((m) => m.DashboardModule),
+      path: 'home',
+      loadComponent: () => import('./demo/home/home.component').then((c) => c.HomeComponent),
       data: { roles: [Role.Admin, Role.User] }
     }
-    // ...
+    // ...demais rotas
   ]
 }
 ```
 
-E `dashboard-routing.module.ts` aponta `default` → `DefaultComponent`. Ou seja:
-acesse **`/dashboard/default`** e a tela aparece com cabeçalho e menu. Nada a
-fazer no roteamento se você mantém a estrutura padrão do Mantis.
+Opcional: aponte o redirect inicial para `home` (em `app-config.ts`,
+`DASHBOARD_PATH`, ou onde o projeto define a rota pós-login).
 
-## O que mudou em relação ao original (por causa das regras)
-
-| Antes (template) | Agora (nossas regras) |
-|---|---|
-| Arrays de dados embutidos no `*.component.ts` | Movidos para `default-data.ts` (Model) |
-| Sem interfaces | `default-type.ts` com `AnalyticCard`, `RecentOrder`, `TransactionHistory` |
-| `import tableData from 'src/fake-data/...json'` | `default.service.ts` (Facade) expõe `recentOrders$` |
-| Componente acessava dados direto | Componente fino consome `analytics$ \| async`, `recentOrders$ \| async`, `transactions$ \| async` |
-| `@for (... track analytic)` (objeto) | `track` por chave estável (`title`/`id`) |
-| SCSS com classes não usadas (`welcome-card`, etc.) | SCSS enxuto (só o que a View usa) |
-
-Comportamento visual: **idêntico** ao default do Mantis. Os 4 gráficos
-(`monthly-bar-chart`, `income-overview-chart`, `analytics-chart`,
-`sales-report-chart`) são **reaproveitados** de `theme/shared/apexchart/` — não
-recriados.
-
-## Como validar no projeto real
+## Validar no projeto real
 
 ```bash
-npm run lint          # corrigir apontamentos, se houver
-ng serve              # acessar /dashboard/default
+npm run lint
+ng serve      # acessar /home: barra superior + menu vazio retrátil + centro vazio
 ```
-
-Os avatares em "Help & Support Chat" usam `assets/images/user/avatar-*.jpg`
-(presentes no Mantis; foram removidos só do nosso template-reference enxuto).

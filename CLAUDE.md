@@ -52,7 +52,8 @@ Detalhes e imports exatos: **`.claude/rules/stack-mantis.md`**.
 4. Reuse controles compartilhados; não crie estilos do zero sem necessidade.
 5. Rode lint/format e ajuste (`npm run lint`, build se aplicável).
 
-Comandos úteis: `/nova-tela <nome>` e `/novo-componente <nome>`.
+Comandos úteis: `/tela-inicial` (casca em branco de um projeto novo),
+`/nova-tela <nome>` e `/novo-componente <nome>`.
 
 ## `template-reference/`
 
