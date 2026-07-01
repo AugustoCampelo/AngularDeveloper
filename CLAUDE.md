@@ -19,8 +19,9 @@ existem.
 
 ## Stack (não troque sem pedir)
 
-- **Angular standalone** (bootstrap via `bootstrapApplication`, `inject()`,
-  signals: `signal()`, `input()`, e em telas novas o `@angular/forms/signals`).
+- **Angular 21 standalone, `zoneless`** (bootstrap via `bootstrapApplication`,
+  `inject()`, signals: `signal()`, `input()`, e em telas novas o
+  `@angular/forms/signals`).
 - **UI:** Bootstrap + **ng-bootstrap** (`@ng-bootstrap/ng-bootstrap`). **Não é
   Angular Material.**
 - **Ícones:** `@ant-design/icons-angular` via `IconService`.

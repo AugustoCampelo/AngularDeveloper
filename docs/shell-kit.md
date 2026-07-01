@@ -51,25 +51,56 @@ No `styles.scss`, remova os imports de plugins que só servem às demos:
 3. **`app-routing.module.ts`** enxuto — ver `generated/shell/app-routing.module.ts`.
 4. **`styles.scss`** enxuto — ver `generated/shell/styles.scss`.
 
-## Dependências do shell (subconjunto)
+## Dependências (versões reais do Mantis v2.4.0)
 
-Confirme as **versões** no `package.json` original do Mantis (é a fonte
-autoritativa); a lista abaixo é o que a casca precisa em runtime:
+> Estratégia recomendada: como você **parte do template**, mantenha o
+> `package.json` original e **remova só os pacotes de demo** depois que o build
+> passar. Manter dependência a mais é inofensivo (só pesa); remover uma
+> necessária quebra o build.
 
-- `@angular/{animations,cdk,common,compiler,core,forms,platform-browser,router}`
-- `@ng-bootstrap/ng-bootstrap` · `@popperjs/core`
-- `@ant-design/icons-angular`
-- `@ngx-translate/core`
-- `ngx-scrollbar`
-- `ngx-toastr`
-- `@sweetalert2/ngx-sweetalert2` · `sweetalert2` (se mantiver o SweetAlert)
-- `@ks89/angular-modal-gallery` · `hammerjs` · `mousetrap` (usados pelo `SharedModule`)
-- `bootstrap` (SCSS) · `rxjs` · `zone.js` · `tslib`
+**MANTER (a casca usa em runtime):**
 
-> **Enxugar mais (opcional):** se não quiser a galeria/hammer/mousetrap, remova
-> `GalleryModule` (e os `import 'hammerjs'/'mousetrap'`) do `shared.module.ts` e
-> tire as libs correspondentes. Reduz dependências, mas diverge do template —
-> faça só se o time preferir.
+```
+@angular/animations @angular/cdk @angular/common @angular/compiler
+@angular/core @angular/forms @angular/localize @angular/platform-browser
+@angular/platform-browser-dynamic @angular/router          21.0.0
+@ng-bootstrap/ng-bootstrap 19.0.1   @popperjs/core 2.11.8   bootstrap 5.3.8
+@ant-design/icons-angular 20.0.0    ngx-scrollbar 18.0.0
+@ks89/angular-modal-gallery 14.0.0  hammerjs 2.0.8          mousetrap 1.6.5
+@ngx-translate/core 17.0.0          ngx-toastr 19.1.0
+@sweetalert2/ngx-sweetalert2 14.0.1 sweetalert2 11.26.3     (se mantiver alerts)
+screenfull 6.0.2 (fullscreen na top bar)  lodash-es 4.17.21 (pipe do shared)
+rxjs ~7.8.2   tslib 2.8.1
+```
+`@angular/localize` é **obrigatório** — é o polyfill do build (`angular.json`).
+Projeto é **zoneless** (não há `zone.js`).
+
+**devDependencies (build/lint/format):** `@angular/cli` 21,
+`@angular-devkit/build-angular` 21, `@angular-eslint/*` 20.6.0, `eslint` 9.39.1,
+`@typescript-eslint/*` 8.47.0, `prettier` 3.6.2, `typescript` 5.9.3,
+`@types/node`, `@types/hammerjs`.
+
+**REMOVÍVEIS (só demo — confirme com o build):** `@angular-slider/ngx-slider`,
+`@angular/material`, `@iplab/ngx-file-upload`, `@narik/custom-validators`,
+`@ng-select/ng-select`, `ag-grid-angular`/`ag-grid-community`,
+`angular-calendar`, `angular-draggable-droppable`, `angular-notifier`,
+`angular-resizable-element`, `angular-uploader`, `angularx-flatpickr`,
+`animate.css` (se sem sweetalert), `apexcharts`/`ng-apexcharts` (dashboards),
+`date-fns`, `dayjs`, `flatpickr`, `ng-recaptcha`, `ng2-date-picker`,
+`ngx-chips`, `ngx-clipboard`, `ngx-color-picker`, `ngx-editor`,
+`ngx-image-cropper`, `ngx-mask`, `ngx-owl-carousel-o`, `ngx-print`,
+`ngx-quill`, `quill`, `uploader`. (`jquery` é script global no `angular.json` —
+remova por último, verificando o build.)
+
+## Wiring do `angular.json`
+
+- **`polyfills`**: mantenha `@angular/localize/init`.
+- **`styles`**: mantenha `src/styles.scss`, `@angular/cdk/overlay-prebuilt.css`
+  e `ngx-toastr/toastr.css`. Remova `flatpickr.css` (e `animate.css` se sem
+  sweetalert).
+- **`scripts`**: remova `quill.js` e `apexcharts.min.js` (demo). `jquery.js` —
+  remova por último, verificando.
+- **`assets`**: `src/fake-data` pode sair (removido no strip).
 
 ## Validação
 

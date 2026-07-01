@@ -4,6 +4,29 @@ Tudo aqui foi extraído do código real em `template-reference/`. Ao gerar telas
 use **estes** pacotes e padrões de import — não introduza Angular Material,
 PrimeNG, Tailwind ou outras libs sem autorização explícita.
 
+## Versões reais (do `package.json` do Mantis v2.4.0)
+
+- **Angular 21.0.0** — projeto **`zoneless`** (sem `zone.js`; polyfill é
+  `@angular/localize/init`). `type: "module"` (ESM).
+- ng-bootstrap **19.0.1** · `@popperjs/core` 2.11.8 · Bootstrap **5.3.8**.
+- `@ant-design/icons-angular` **20.0.0** · ngx-scrollbar 18 ·
+  `@ks89/angular-modal-gallery` 14 (+ hammerjs 2, mousetrap 1.6.5).
+- ngx-toastr **19.1.0** · `@sweetalert2/ngx-sweetalert2` 14 + sweetalert2 11.
+- `@ngx-translate/core` **17.0.0** · `screenfull` 6 (fullscreen na top bar) ·
+  lodash-es 4 (pipe do shared).
+- Gráficos: ng-apexcharts 2 + apexcharts 5 · Tabelas: ag-grid 34 ·
+  `@angular/material` 21 (presente, mas UI é ng-bootstrap — Material quase só
+  entra via CSS prebuilt/plugins de demo).
+- Toolchain: **TypeScript 5.9.3** · **ESLint 9.39.1** (flat config,
+  `@angular-eslint` 20.6) · **Prettier 3.6.2** · Angular CLI 21 · build
+  `@angular-devkit/build-angular:browser`.
+- Scripts: `npm start` (serve), `npm run build`, `npm test`, `npm run lint`,
+  `npm run lint:fix`, `npm run prettier`.
+
+> Ao gerar código, respeite **zoneless**: prefira signals/`async` pipe; não
+> dependa de detecção de mudanças automática por zone (ex.: mutações fora de
+> signals/observables podem não refletir na View).
+
 ## Bootstrap da aplicação
 
 `main.ts` usa `bootstrapApplication(AppComponent, { providers: [...] })` com:

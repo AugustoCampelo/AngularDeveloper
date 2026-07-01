@@ -77,9 +77,20 @@ import { ToastrService } from 'ngx-toastr';
 
 ## Lint e formatação
 
-- Rode `npm run lint` (ESLint) e o formatador do projeto (Prettier) antes de
-  concluir. Corrija o que o lint apontar; não silencie regras sem justificativa.
+- Toolchain real: **ESLint 9** (flat config, `@angular-eslint` 20.6) via
+  `ng lint`, e **Prettier 3.6**. Comandos: `npm run lint`, `npm run lint:fix`,
+  `npm run prettier`. Rode antes de concluir e corrija; não silencie regras sem
+  justificativa.
 - Não deixe `console.log` nem código morto.
+
+## TypeScript / compilador (do `tsconfig` real)
+
+- `strict: true`, mas `strictTemplates: false` e `useDefineForClassFields: false`.
+- `noPropertyAccessFromIndexSignature: true` → acesse propriedades de index
+  signature por colchetes (`obj['x']`), não por ponto.
+- `experimentalDecorators: true`, target/module **ES2022**, `moduleResolution: bundler`.
+- Projeto **zoneless** (Angular 21, sem `zone.js`): garanta reatividade via
+  signals/`async` pipe; evite depender de change detection implícita por zone.
 
 ## Comentários
 
