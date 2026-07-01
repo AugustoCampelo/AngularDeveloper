@@ -23,6 +23,8 @@ interfaces de usuário em **Angular + TypeScript** sobre o template proprietári
 | `.claude/commands/novo-componente.md` | Comando `/novo-componente <nome>`. |
 | `.claude/settings.json` | Permissões (lint/build/generate) e proteção do reference. |
 | `docs/exemplos/README.md` | Mapa de arquétipos → exemplos reais do template. |
+| `docs/shell-kit.md` | Manifesto da casca inicial (manter/remover/editar + dependências). |
+| `docs/inicializando-tela-inicial.md` | Passo a passo para testar `/tela-inicial` no VSCode. |
 | `template-reference/` | Cópia enxuta do `src/` do Mantis, **só para leitura**. |
 
 ## Como usar neste repositório
