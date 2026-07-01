@@ -1,0 +1,72 @@
+/* Mantis — styles.scss enxuto para a casca inicial.
+   Mantém bootstrap + settings + tema/layout + fontes. Remove plugins de demo.
+   Reative um bloco quando a feature correspondente for adicionada. */
+
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:string';
+
+// bootstrap functions, variables, and variables-dark
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/variables-dark';
+
+@import 'scss/settings/color-variables';
+@import 'scss/settings/theme-variables';
+@import 'scss/settings/bootstrap-variables';
+
+// bootstrap import
+@import 'scss/bootstrap/bootstrap';
+
+body.mantis-ltr {
+  @import '../node_modules/bootstrap/scss/utilities';
+  @import '../node_modules/bootstrap/scss/utilities/api';
+}
+
+body.mantis-rtl {
+  @import 'scss/theme/layouts/RTL/style-rtl-utility';
+  @import '../node_modules/bootstrap/scss/utilities/api';
+}
+
+// main framework
+@import 'scss/theme/generic.scss';
+@import 'scss/theme/general.scss';
+@import 'scss/theme/components/components.scss';
+
+// theme layout (barra superior + menu retrátil + configurador)
+@import 'scss/theme/layouts/menu/sidebar.scss';
+@import 'scss/theme/layouts/navbar/navbar.scss';
+@import 'scss/theme/layouts/configuration/configuration.scss';
+@import 'scss/theme/layouts/pc-common.scss';
+@import 'scss/theme/layouts/breadcrumb/breadcrumb.scss';
+@import 'scss/theme/layouts/footer/footer.scss';
+@import 'scss/theme/layouts/menu/horizontal.scss';
+@import 'scss/theme/layouts/menu/compact.scss';
+
+// isRTLMode
+@import 'scss/theme/layouts/RTL/rtl.scss';
+
+// fonts (icon sets usados pelo tema/menu)
+@import 'scss/fonts/feather.css';
+@import 'scss/fonts/fontawesome.css';
+@import 'scss/fonts/material.css';
+@import 'scss/fonts/tabler-icons.min.css';
+
+// dark mode + presets de cor
+@import 'scss/theme/layouts/dark-mode/dark.scss';
+@import 'scss/theme/style-preset.scss';
+
+/* ---- Plugins de demo (reative conforme a necessidade) ----
+@import '../node_modules/sweetalert2/src/sweetalert2.scss';   // SweetAlert
+@import '../node_modules/animate.css';
+@import 'scss/plugin/apex-chart.scss';                        // ApexCharts (dashboards)
+@import 'scss/plugin/date-picker.scss';
+@import 'scss/pages/data-table/data-table.scss';             // ag-grid / tabelas
+@import 'scss/plugin/data-table.scss';
+@import '../node_modules/angular-calendar/css/angular-calendar.css';
+@import '../node_modules/@ng-select/ng-select/themes/default.theme.css';
+@import '../node_modules/ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import '../node_modules/ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+@import '../node_modules/quill/dist/quill.snow.css';
+@import '../node_modules/angular-notifier/styles';
+*/

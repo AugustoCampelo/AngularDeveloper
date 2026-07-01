@@ -1,71 +1,50 @@
-# Tela inicial (casca em branco do sistema)
+# Tela inicial (casca em branco) — projeto Angular novo
 
-Saída do comando `/tela-inicial`. Entrega o **esqueleto de arranque** de um
-projeto Mantis, sem conteúdo de demonstração:
+Saída do comando `/tela-inicial` para o **Caso B** (projeto vazio). Entrega o
+**esqueleto de arranque** de um sistema Mantis, sem conteúdo de demonstração:
 
-- **Barra superior** — vem do `admin-layout` (não é recriada).
-- **Menu lateral retrátil vazio** — sem itens/sub-itens.
-- **Área central vazia** — sem cards/informação.
+- **Barra superior** + **menu lateral retrátil vazio** + **área central vazia**.
 
-> Destino: **colar num projeto Mantis real** (este repo não é um app Angular).
+## Modelo: reduzir o template, não reconstruir
 
-## Arquivos e onde colar
+Num projeto vazio, a casca depende de toda a infraestrutura do Mantis (layout,
+`SharedModule`, tema SCSS, bootstrap, dependências). O caminho robusto é **partir
+do template Mantis** (que já compila) e **reduzi-lo** à casca. O manifesto
+completo de _manter / remover / editar / dependências_ está em
+**`../docs/shell-kit.md`**.
+
+## Arquivos autorais desta casca
+
+Estes são os arquivos que você edita/cria (o restante do layout vem do template):
 
 ```
 generated/shell/
-├── navigation.ts          → src/app/theme/layout/admin-layout/navigation/navigation.ts   (SUBSTITUI)
-└── home/                   → src/app/demo/home/                                            (NOVO)
+├── navigation.ts             → theme/layout/admin-layout/navigation/navigation.ts   (SUBSTITUI: menu vazio)
+├── app-routing.module.ts     → app/app-routing.module.ts                            (SUBSTITUI: rotas enxutas)
+├── styles.scss               → src/styles.scss                                       (SUBSTITUI: sem plugins de demo)
+└── home/                      → src/app/demo/home/                                    (NOVO: centro vazio)
     ├── home.component.ts
     ├── home.component.html
     └── home.component.scss
 ```
 
-- **`navigation.ts`**: substitui o do template. Mantém a interface
-  `NavigationItem` e define `NavigationItems: NavigationItem[] = []` (menu zerado).
-  Há um exemplo comentado no topo mostrando a forma `group → collapse → item`
-  para você preencher.
-- **`home/`**: a área central vazia (componente fino, template só com um
-  contêiner e comentário).
+## Passo a passo (resumo)
 
-## Barra superior + menu retrátil (já existem)
+1. Parta de uma cópia do template Mantis como base do projeto novo.
+2. Aplique os 4 arquivos acima (menu vazio, rotas enxutas, styles enxuto, home).
+3. Remova `app/demo/**` (exceto `home` e as páginas de login/erro referenciadas
+   pelas rotas — ver `shell-kit.md`).
+4. Ajuste o `package.json` para o subconjunto do shell e `npm install`.
+5. `npm run lint` → `ng serve` → acesse `/home`.
 
-Ambos são fornecidos pelo `admin-layout`, que todo projeto Mantis já tem:
+## Barra superior + menu retrátil
 
-- `theme/layout/admin-layout/nav-bar/` → **barra superior** (com o botão que
-  recolhe/expande o menu).
-- `theme/layout/admin-layout/navigation/` → **menu lateral retrátil**, que
-  renderiza os itens de `navigation.ts` (agora vazio → menu em branco, mas
-  ainda retrátil).
+Continuam vindo do `admin-layout` do Mantis (`nav-bar/` = barra superior;
+`navigation/` = menu retrátil). Aqui só **zeramos os dados do menu** — ele segue
+retrátil, porém sem itens.
 
-Nada a recriar aqui — apenas zeramos os dados do menu.
+## Observação sobre este repositório
 
-## Rota (mostrar a home dentro da casca)
-
-Registre a `home` como filha do `AdminLayout` para herdar barra + menu. No
-`app-routing.module.ts` do projeto:
-
-```ts
-{
-  path: '',
-  component: AdminLayout,
-  canActivateChild: [AuthGuardChild],
-  children: [
-    {
-      path: 'home',
-      loadComponent: () => import('./demo/home/home.component').then((c) => c.HomeComponent),
-      data: { roles: [Role.Admin, Role.User] }
-    }
-    // ...demais rotas
-  ]
-}
-```
-
-Opcional: aponte o redirect inicial para `home` (em `app-config.ts`,
-`DASHBOARD_PATH`, ou onde o projeto define a rota pós-login).
-
-## Validar no projeto real
-
-```bash
-npm run lint
-ng serve      # acessar /home: barra superior + menu vazio retrátil + centro vazio
-```
+Não copiamos o subsistema de layout do Mantis para dentro de `generated/` (seria
+apenas duplicar o `template-reference/`). Os arquivos aqui são só os **autorais**
+da casca; o layout/tema/shared vêm da sua base Mantis, conforme o manifesto.

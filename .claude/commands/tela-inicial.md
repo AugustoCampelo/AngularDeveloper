@@ -1,46 +1,64 @@
 ---
-description: Gera a casca inicial em branco do sistema (barra superior + menu lateral retrátil vazio + área central vazia) no padrão Mantis
-argument-hint: [rota-inicial: default home]
+description: Cria a casca inicial em branco de um PROJETO NOVO a partir do template Mantis (barra superior + menu lateral retrátil vazio + área central vazia)
+argument-hint: [rota-inicial: home]
 ---
 
-Gere a **tela inicial (casca em branco)** de um sistema Mantis: o esqueleto de
-arranque de um projeto novo, **sem conteúdo de demonstração**.
+Gere a **casca inicial (starter em branco)** de um sistema Mantis para um
+**projeto Angular novo/vazio**: barra superior + menu lateral retrátil **sem
+itens** + área central **vazia**, já compilável.
 
-Resultado esperado:
-- **Barra superior** (top bar) presente — vem do `nav-bar` do `admin-layout`.
-- **Menu lateral retrátil vazio** — sem itens nem sub-itens.
-- **Área central vazia** — nenhum card/gráfico/tabela.
+## Princípio (leia antes)
 
-Siga nesta ordem:
+Num projeto vazio, a casca precisa de TODA a infraestrutura do Mantis (layout,
+shared, tema SCSS, bootstrap, dependências). **Não reconstrua isso do zero** a
+partir de um `ng new` — é frágil. O caminho correto é **partir do template
+Mantis e reduzi-lo à casca** (ele já compila). O manifesto detalhado de
+_manter / remover / editar_ está em **`docs/shell-kit.md`** — siga-o.
 
-1. **Contexto:** leia `.claude/rules/arquitetura.md`, `.claude/rules/estilo-codigo.md`
-   e `.claude/rules/stack-mantis.md`. Estude, em `template-reference/`:
-   `app/theme/layout/admin-layout/` (composição: `nav-bar` + `navigation` +
-   `<router-outlet>`) e `app/theme/layout/admin-layout/navigation/navigation.ts`
-   (estrutura de dados do menu, tipo `NavigationItem`).
+## Passos
 
-2. **NÃO recrie** a barra superior nem o comportamento retrátil do menu — eles já
-   existem no `admin-layout` de qualquer projeto Mantis. **Reaproveite.** Se o
-   projeto-alvo ainda não tiver o `admin-layout`, avise o usuário antes de
-   prosseguir (é parte do template, não deve ser reescrito do zero).
+1. **Contexto:** leia `.claude/rules/*.md` e **`docs/shell-kit.md`**. Confirme a
+   fonte do template Mantis (o projeto do time, ou `template-reference/` como
+   referência de estrutura).
 
-3. **Zere o menu:** gere/atualize `navigation.ts` preservando a interface
-   `NavigationItem` e definindo `export const NavigationItems: NavigationItem[] = [];`
-   (vazio). Inclua um comentário com um exemplo comentado da forma de um item
-   (`group` → `collapse` → `item`) para o dev preencher depois. Remova imports
-   que ficariam sem uso (mantenha lint limpo).
+2. **Base:** parta de uma cópia do template Mantis como esqueleto do projeto
+   novo (mantém `src/app/theme/**`, `src/scss/**`, `main.ts`, `app-config.ts`,
+   `app.component.*`, `index.html`, `angular.json`, `package.json`,
+   `tsconfig*`). Se o usuário insistir em começar de `ng new` puro, avise que
+   será preciso trazer o subsistema de layout + as dependências do
+   `docs/shell-kit.md`, e confirme antes.
 
-4. **Área central vazia:** crie um componente `home` (ou `$1`, se informado)
-   standalone, fino, `imports: [CommonModule, SharedModule]`, com template
-   **vazio** (apenas um contêiner e um comentário indicando onde adicionar
-   conteúdo). Sem cards, sem dados, sem service (é uma tela em branco).
+3. **Remova o conteúdo de demonstração** conforme o manifesto: `src/app/demo/**`
+   (exceto uma `home` vazia que você cria), páginas/rotas de demo, e os imports
+   de plugins de demo no `styles.scss`. Mantenha o layout, o `SharedModule` e o
+   tema.
 
-5. **Rota:** registre a tela como filho padrão do `AdminLayout` (para herdar barra
-   superior + menu), com `canActivateChild: [AuthGuardChild]` e
-   `data: { roles: [...] }`. Ex.: `path: 'home'` (ou `''`) → `HomeComponent`.
+4. **Zere o menu:** em `theme/layout/admin-layout/navigation/navigation.ts`,
+   preserve a interface `NavigationItem` e defina
+   `export const NavigationItems: NavigationItem[] = [];` (com um exemplo
+   comentado da forma `group → collapse → item`). Remova imports que ficariam
+   sem uso.
 
-6. **Finalize:** rode `npm run lint`, corrija apontamentos e relate os arquivos
-   criados e a rota. Não introduza libs novas.
+5. **Área central vazia:** crie `demo/home/home.component.*` (standalone, fino,
+   `imports: [CommonModule, SharedModule]`, template vazio — só um contêiner e um
+   comentário; sem cards/dados/service).
 
-Objetivo: entregar um ponto de partida limpo, pronto para o dev começar a
-adicionar itens de menu e telas.
+6. **Enxugue as rotas** (`app-routing.module.ts`): mantenha apenas
+   `GuestLayouts` + login e `AdminLayout` + `home` (protegida por
+   `AuthGuardChild`, com `data: { roles: [...] }`), além do `unauthorized` e do
+   wildcard de erro. Remova as rotas de demo.
+
+7. **Enxugue o `styles.scss`**: mantenha bootstrap + `scss/settings` +
+   `scss/theme` (generic/general/components + layouts: sidebar, navbar,
+   configuration, pc-common, breadcrumb, footer) + fontes + dark-mode +
+   style-preset. Remova imports de plugins de demo (quill, ng-select, owl,
+   calendar, notifier, material prebuilt, sweetalert opcional).
+
+8. **Dependências:** ajuste o `package.json` para o subconjunto do shell
+   (ver `docs/shell-kit.md`). Rode `npm install`.
+
+9. **Valide:** `npm run lint` e `ng serve`. Acesse `/home`: deve mostrar barra
+   superior + menu vazio retrátil + centro vazio. Corrija erros de build/lint.
+
+Não introduza libs novas além das do Mantis. Reporte os arquivos criados,
+removidos e editados, e a rota inicial.

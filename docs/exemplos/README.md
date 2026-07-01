@@ -15,8 +15,10 @@ projeto — adapte ao domínio.
   casca inicial, este array fica **vazio**: `NavigationItems: NavigationItem[] = []`).
 
 Entrega o esqueleto de arranque: barra superior + menu retrátil vazio + área
-central vazia. A barra e o comportamento retrátil **vêm do `admin-layout`** — não
-recrie; apenas zere `navigation.ts` e adicione uma `home` vazia.
+central vazia. Para **projeto novo/vazio**, siga o manifesto de redução do
+template em **`docs/shell-kit.md`** (manter/remover/editar + dependências). A
+barra e o comportamento retrátil **vêm do `admin-layout`** — não recrie; zere
+`navigation.ts` e adicione uma `home` vazia.
 
 ## 1. Lista / CRUD com busca, ordenação e paginação ⭐
 **Referência:** `demo/admin-panel/helpdesk/helpdesk-customer/`
