@@ -90,6 +90,8 @@ reagir a tema/layout.
 
 ## Ícones — padrão de uso
 
+**Padrão principal — Ant Design** (via `IconService` + `IconDirective`):
+
 ```ts
 import { IconService } from '@ant-design/icons-angular';
 import { EditOutline, DeleteOutline } from '@ant-design/icons-angular/icons';
@@ -97,3 +99,27 @@ import { EditOutline, DeleteOutline } from '@ant-design/icons-angular/icons';
 this.iconService.addIcon(...[EditOutline, DeleteOutline]);
 ```
 No template: `<i antIcon type="edit"></i>` (via `IconDirective` do SharedModule).
+Sempre **registre o ícone** (`addIcon`) antes de usar seu `type` no template.
+
+### Sistemas de ícone disponíveis (não invente classes)
+
+O tema carrega quatro fontes de ícone por classe CSS, além do Ant Design. Os
+**mapas classe→glifo** ficam em `template-reference/scss/fonts/*.css` — consulte-os
+para achar o nome exato de uma classe antes de usá-la (os binários `.woff/.ttf`
+não estão no reference, mas existem no projeto real):
+
+| Sistema      | Uso no template          | Catálogo (referência)              |
+|--------------|--------------------------|------------------------------------|
+| Ant Design   | `<i antIcon type="...">` | `@ant-design/icons-angular/icons`  |
+| Font Awesome | `<i class="fas fa-...">` | `scss/fonts/fontawesome.css`       |
+| Tabler       | `<i class="ti ti-...">`  | `scss/fonts/tabler-icons.min.css`  |
+| Feather      | `<i class="feather ...">`| `scss/fonts/feather.css`           |
+| Material     | `<i class="material-icons">` | `scss/fonts/material.css`      |
+
+- Prefira **Ant Design** em telas novas (é o padrão do template). Só use as
+  classes CSS (fa/ti/feather/material) quando estiver imitando um trecho que já
+  as usa.
+- Antes de referenciar uma classe, **confirme que ela existe** no `.css`
+  correspondente (ou no `.html` real de alguma tela) — não adivinhe nomes.
+- Fonte de texto padrão: **Inter/Public Sans** (`app-config.ts` → `font_family`;
+  `scss/fonts/inter/inter.css`).
