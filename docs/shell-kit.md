@@ -121,6 +121,47 @@ remova por último, verificando o build.)
   remova por último, verificando.
 - **`assets`**: `src/fake-data` pode sair (removido no strip).
 
+## Moldura enxuta (chrome) — padrão do esqueleto
+
+Depois da casca compilar, enxugue a "moldura" do `admin-layout` (validado em
+execução real):
+
+1. **Rodapé central** — em `admin-layout/admin-layout.component.html`, remova o
+   bloco `<footer class="pc-footer"> … </footer>` (Copyright/links).
+2. **Busca Ctrl+K** — em `admin-layout/nav-bar/nav-left/nav-left.component.html`,
+   remova os dois `<li>` de busca (o `dropdown … d-md-none` e o
+   `d-none d-md-inline-flex` com `<form class="header-search">`). Em
+   `nav-left.component.ts`, remova `SearchOutline` do import e do `addIcon(...)`.
+3. **Barra superior** — em `admin-layout/nav-bar/nav-right/nav-right.component.html`,
+   remova os `<li>` de **Explore Components** (`pc-mega-menu`), **idioma**
+   (ícone `translation`) e **Mensagens** (`#messageDrop`). Mantenha Notificações
+   (`bell`), Tela cheia, engrenagem (`settings`) e perfil. Em
+   `nav-right.component.ts`, remova o que ficar órfão: `megaMenus`, `messageList`,
+   `useLanguage()`, `ngOnInit`/`OnInit`, `TranslateService` (import+inject),
+   import `MantisConfig` (se não usado), e ícones `WindowsOutline`,
+   `TranslationOutline`, `MailOutline`, `ArrowRightOutline`, `CloseOutline`.
+   Confie no `npm run lint`.
+4. **Menu lateral** — em `admin-layout/navigation/nav-content/nav-content.component.html`,
+   remova o card **"Help ?"** (`<div class="m-4 mb-0">…`) e o bloco de usuário
+   (`<div class="user-profile-section">…`). Limpe o que ficar órfão no
+   `nav-content.component.ts` (ex.: `logout()`/`authenticationService`).
+5. **Engrenagem fixa (sem rotação)** — em
+   `scss/theme/layouts/navbar/navbar.scss`, no bloco `.settings`, troque
+   `animation: anim-rotate 2s infinite linear;` por `animation: none;`.
+
+## Login esqueleto (PT-BR)
+
+Substitua a tela de login pelo esqueleto PT-BR (arquivos em
+`generated/shell/login/` no repo de configuração):
+
+- `auth-login.component.{ts,html,scss}` → `src/app/demo/pages/authentication/auth-login/`
+- `auth.scss` (original restaurado) → `src/app/demo/pages/authentication/`
+
+Características: sem abas Admin/User, textos em português, só o botão **Google**
+(centralizado), rodapé **Home** (esquerda) + **Contato**, campos **pré-preenchidos**
+(demo: admin@gmail.com / Admin@123) e mensagem de erro localizada
+("Verifique o email e a senha"). Ver detalhes em `generated/README.md`.
+
 ## Validação
 
 ```

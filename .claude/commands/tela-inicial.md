@@ -56,15 +56,31 @@ _manter / remover / editar_ está em **`docs/shell-kit.md`** — siga-o.
    style-preset. Remova imports de plugins de demo (quill, ng-select, owl,
    calendar, notifier, material prebuilt, sweetalert opcional).
 
-8. **Redirect pós-login:** em `app-config.ts`, defina `DASHBOARD_PATH = '/home'`
-   para cair na `home` da casca após autenticar.
+8. **Enxugue a moldura (chrome)** conforme `docs/shell-kit.md` → "Moldura
+   enxuta": remova o rodapé central (`admin-layout.component.html`), a busca
+   Ctrl+K (`nav-left`), e no `nav-right` os itens Explore Components, seletor de
+   idioma e Mensagens (mantendo Notificações, Tela cheia, engrenagem e perfil);
+   remova os cards "Help ?" e de usuário do `nav-content`. Limpe imports/símbolos
+   órfãos nos `.ts` (confie no lint).
 
-9. **Dependências:** ajuste o `package.json` para o subconjunto do shell
-   (ver `docs/shell-kit.md`). Rode **`npm install --legacy-peer-deps`** (a flag é
-   obrigatória: `@ant-design/icons-angular@20` conflita com Angular 21 no
-   template — `npm install` puro falha com `ERESOLVE`).
+9. **Engrenagem fixa:** em `scss/theme/layouts/navbar/navbar.scss`, no bloco
+   `.settings`, troque `animation: anim-rotate 2s infinite linear;` por
+   `animation: none;` (a engrenagem da barra superior para de girar).
 
-10. **Valide:** `npm run lint` e `ng build` (ou `ng serve`). Acesse `/home`: deve
+10. **Login esqueleto PT-BR:** aplique os arquivos de `generated/shell/login/`
+    (ver `docs/shell-kit.md` → "Login esqueleto"): `auth-login.component.{ts,html,scss}`
+    e o `auth.scss` original. Sem abas Admin/User, textos PT, só Google, campos
+    pré-preenchidos e erro localizado.
+
+11. **Redirect pós-login:** em `app-config.ts`, defina `DASHBOARD_PATH = '/home'`
+    para cair na `home` da casca após autenticar.
+
+12. **Dependências:** ajuste o `package.json` para o subconjunto do shell
+    (ver `docs/shell-kit.md`). Rode **`npm install --legacy-peer-deps`** (a flag é
+    obrigatória: `@ant-design/icons-angular@20` conflita com Angular 21 no
+    template — `npm install` puro falha com `ERESOLVE`).
+
+13. **Valide:** `npm run lint` e `ng build` (ou `ng serve`). Acesse `/home`: deve
     mostrar barra superior + menu vazio retrátil + centro vazio. Corrija erros de
     build/lint — normalmente referências órfãs a demos removidos.
 
