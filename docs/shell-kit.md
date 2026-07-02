@@ -31,12 +31,23 @@ angular.json · package.json · tsconfig*.json
 ```
 src/app/demo/**                     # telas de demo (crie uma home vazia — ver EDITAR)
 src/app/theme/layout/simple-layout/ # navegação de componentes (demo) — opcional
+src/app/theme/shared/apexchart/**   # wrappers de gráfico (só usados por dashboards de demo)
 src/fake-data/**                    # mocks (se ainda existir)
 ```
+> `theme/shared/apexchart/**` são componentes standalone **não** declarados no
+> `SharedModule` — pode remover na casca. Mas ao criar o 1º **dashboard** depois,
+> re-adicione `ng-apexcharts`/`apexcharts` e regenere/traga esses wrappers.
 **Exceções (mantenha — são referenciadas pelas rotas enxutas):**
 `demo/pages/authentication/auth-login/` (login),
 `demo/pages/maintenance/error/` e `.../unauthorize-error/`. Se você também
 remover o login, ajuste `app-routing.module.ts` para redirecionar `''` → `home`.
+
+> ⚠️ **Dependências compartilhadas dos keepers — mantenha também:** o
+> `auth-login.component.scss` importa `../auth.scss` (estilo base das telas de
+> auth). **Não apague** `demo/pages/authentication/auth.scss` ao remover os
+> irmãos da pasta `authentication/`, senão o build quebra
+> (`Can't find stylesheet to import`). Se isso acontecer, **restaure o original**
+> — não invente um substituto (o login deve manter o visual do Mantis).
 No `styles.scss`, remova os imports de plugins que só servem às demos:
 `quill`, `@ng-select`, `ngx-owl-carousel-o`, `angular-calendar`,
 `angular-notifier`, `@angular/material/prebuilt-themes`, e (opcional)
@@ -44,12 +55,20 @@ No `styles.scss`, remova os imports de plugins que só servem às demos:
 
 ## EDITAR
 
+> Os arquivos-modelo estão no **repositório de configuração**, em
+> `generated/shell/` (não são copiados para o projeto-alvo). Consulte-os lá; se
+> não tiver o repo à mão, gere pelo conteúdo descrito abaixo.
+
 1. **`navigation.ts`** → menu vazio:
-   `export const NavigationItems: NavigationItem[] = [];` (interface preservada).
-   Ver `generated/shell/navigation.ts`.
-2. **`home` vazia** em `src/app/demo/home/` — ver `generated/shell/home/`.
-3. **`app-routing.module.ts`** enxuto — ver `generated/shell/app-routing.module.ts`.
-4. **`styles.scss`** enxuto — ver `generated/shell/styles.scss`.
+   `export const NavigationItems: NavigationItem[] = [];` (interface `NavigationItem`
+   preservada). Ver `generated/shell/navigation.ts`.
+2. **`home` vazia** em `src/app/demo/home/` — componente standalone fino,
+   template vazio. Ver `generated/shell/home/`.
+3. **`app-routing.module.ts`** enxuto (login + home + unauthorized + wildcard).
+   Ver `generated/shell/app-routing.module.ts`.
+4. **`styles.scss`** enxuto (sem plugins de demo). Ver `generated/shell/styles.scss`.
+5. **`app-config.ts`** → `DASHBOARD_PATH = '/home'` (destino do redirect
+   pós-login, para cair na `home` da casca).
 
 ## Dependências (versões reais do Mantis v2.4.0)
 
@@ -104,6 +123,18 @@ remova por último, verificando o build.)
 
 ## Validação
 
-`npm install` → `npm run lint` → `ng serve` → acesse `/home`.
+```
+npm install --legacy-peer-deps    # ver nota abaixo
+npm run lint
+ng serve                          # acesse /home
+```
+
+> ⚠️ **`--legacy-peer-deps` é obrigatório neste template.** O `npm install` puro
+> falha com `ERESOLVE`: `@ant-design/icons-angular@20` declara peer
+> `@angular/common@^20`, mas o Mantis v2.4.0 usa Angular 21. A flag só afrouxa a
+> checagem de peers na instalação (não muda versões); o template original também
+> é instalado assim. Depois dela, `ng build` e `ng lint` passam normalmente.
+
 Ajuste imports remanescentes que o build acusar (o strip pode deixar referências
-órfãs a componentes de demo removidos).
+órfãs a componentes de demo removidos — ex.: `breadcrumb`, `search-filter.pipe`
+importando de `simple-layout`; ou `auth.scss` — ver Exceções).

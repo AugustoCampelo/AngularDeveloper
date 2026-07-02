@@ -127,12 +127,17 @@ code "C:\Development\IALab\ClaudeAI\ProjetoUIDeveloper\shell-test"
 
 ```powershell
 cd "C:\Development\IALab\ClaudeAI\ProjetoUIDeveloper\shell-test"
-npm install
+npm install --legacy-peer-deps
 npm run lint
-ng serve
+npm start   # (ng serve)
 ```
 
 Abra `http://localhost:4200/home`.
+
+> ⚠️ **Use `--legacy-peer-deps`.** O `npm install` puro falha com `ERESOLVE`
+> (`@ant-design/icons-angular@20` pede Angular `^20`; o Mantis v2.4.0 é Angular
+> 21). É um conflito **pré-existente do template** — a flag é o modo correto de
+> instalar, não muda versões.
 
 ## Checklist de aceite
 
@@ -148,6 +153,9 @@ Abra `http://localhost:4200/home`.
 - **Erros de import para telas de demo removidas** (referências órfãs): é
   esperado. Rode `ng build` ou `npm run lint`, cole o erro no chat do Claude Code
   e peça a correção. Normalmente 1–2 rodadas resolvem.
+- **`Can't find stylesheet to import '../auth.scss'`**: o strip removeu o estilo
+  base compartilhado das telas de auth. **Restaure o `auth.scss` original** em
+  `src/app/demo/pages/authentication/` (não fabrique um novo) — ver `shell-kit.md`.
 - **`ng serve` não sobe por dependência de demo**: confirme no `angular.json` que
   os `scripts`/`styles` de plugins de demo foram comentados/removidos conforme o
   `docs/shell-kit.md`.

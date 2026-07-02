@@ -31,7 +31,9 @@ _manter / remover / editar_ está em **`docs/shell-kit.md`** — siga-o.
 3. **Remova o conteúdo de demonstração** conforme o manifesto: `src/app/demo/**`
    (exceto uma `home` vazia que você cria), páginas/rotas de demo, e os imports
    de plugins de demo no `styles.scss`. Mantenha o layout, o `SharedModule` e o
-   tema.
+   tema. **Preserve as dependências compartilhadas dos keepers** — em especial
+   `demo/pages/authentication/auth.scss` (o `auth-login.component.scss` importa
+   `../auth.scss`; se apagar, o build quebra — não fabrique um substituto).
 
 4. **Zere o menu:** em `theme/layout/admin-layout/navigation/navigation.ts`,
    preserve a interface `NavigationItem` e defina
@@ -54,11 +56,17 @@ _manter / remover / editar_ está em **`docs/shell-kit.md`** — siga-o.
    style-preset. Remova imports de plugins de demo (quill, ng-select, owl,
    calendar, notifier, material prebuilt, sweetalert opcional).
 
-8. **Dependências:** ajuste o `package.json` para o subconjunto do shell
-   (ver `docs/shell-kit.md`). Rode `npm install`.
+8. **Redirect pós-login:** em `app-config.ts`, defina `DASHBOARD_PATH = '/home'`
+   para cair na `home` da casca após autenticar.
 
-9. **Valide:** `npm run lint` e `ng serve`. Acesse `/home`: deve mostrar barra
-   superior + menu vazio retrátil + centro vazio. Corrija erros de build/lint.
+9. **Dependências:** ajuste o `package.json` para o subconjunto do shell
+   (ver `docs/shell-kit.md`). Rode **`npm install --legacy-peer-deps`** (a flag é
+   obrigatória: `@ant-design/icons-angular@20` conflita com Angular 21 no
+   template — `npm install` puro falha com `ERESOLVE`).
+
+10. **Valide:** `npm run lint` e `ng build` (ou `ng serve`). Acesse `/home`: deve
+    mostrar barra superior + menu vazio retrátil + centro vazio. Corrija erros de
+    build/lint — normalmente referências órfãs a demos removidos.
 
 Não introduza libs novas além das do Mantis. Reporte os arquivos criados,
 removidos e editados, e a rota inicial.
