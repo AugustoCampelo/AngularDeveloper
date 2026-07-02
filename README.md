@@ -28,10 +28,15 @@ interfaces de usuário em **Angular + TypeScript** sobre o template proprietári
 | `skeleton/` | **Modelos canônicos** do esqueleto (menu vazio, home, rotas, styles, login PT-BR) aplicados pelo `/tela-inicial`. |
 | `template-reference/` | Cópia enxuta do `src/` do Mantis, **só para leitura**. |
 
-## Como usar neste repositório
+## Como usar (no projeto-alvo)
 
-- `/tela-inicial` — gera a casca em branco (barra superior + menu retrátil vazio + centro vazio).
-- `/nova-tela clientes crud` — gera uma tela de listagem/CRUD.
+> Os comandos rodam **num projeto Angular baseado no Mantis** que tenha esta
+> configuração copiada (ver "Como replicar" abaixo) — **não** neste repositório
+> de configuração, que não é um app Angular.
+
+- `/tela-inicial` — **uma vez por projeto novo**: gera a casca em branco (barra
+  superior + menu retrátil vazio + centro vazio) a partir do template Mantis.
+- `/nova-tela clientes crud` — trabalho contínuo: gera uma tela de listagem/CRUD.
 - `/novo-componente kpi-card` — gera um componente de apresentação.
 - Ou peça em linguagem natural; o subagente `ui-builder` é acionado para telas.
 
