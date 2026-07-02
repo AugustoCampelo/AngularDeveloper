@@ -56,17 +56,17 @@ No `styles.scss`, remova os imports de plugins que só servem às demos:
 ## EDITAR
 
 > Os arquivos-modelo estão no **repositório de configuração**, em
-> `generated/shell/` (não são copiados para o projeto-alvo). Consulte-os lá; se
+> `skeleton/shell/` (não são copiados para o projeto-alvo). Consulte-os lá; se
 > não tiver o repo à mão, gere pelo conteúdo descrito abaixo.
 
 1. **`navigation.ts`** → menu vazio:
    `export const NavigationItems: NavigationItem[] = [];` (interface `NavigationItem`
-   preservada). Ver `generated/shell/navigation.ts`.
+   preservada). Ver `skeleton/shell/navigation.ts`.
 2. **`home` vazia** em `src/app/demo/home/` — componente standalone fino,
-   template vazio. Ver `generated/shell/home/`.
+   template vazio. Ver `skeleton/shell/home/`.
 3. **`app-routing.module.ts`** enxuto (login + home + unauthorized + wildcard).
-   Ver `generated/shell/app-routing.module.ts`.
-4. **`styles.scss`** enxuto (sem plugins de demo). Ver `generated/shell/styles.scss`.
+   Ver `skeleton/shell/app-routing.module.ts`.
+4. **`styles.scss`** enxuto (sem plugins de demo). Ver `skeleton/shell/styles.scss`.
 5. **`app-config.ts`** → `DASHBOARD_PATH = '/home'` (destino do redirect
    pós-login, para cair na `home` da casca).
 
@@ -152,7 +152,7 @@ execução real):
 ## Login esqueleto (PT-BR)
 
 Substitua a tela de login pelo esqueleto PT-BR (arquivos em
-`generated/shell/login/` no repo de configuração):
+`skeleton/shell/login/` no repo de configuração):
 
 - `auth-login.component.{ts,html,scss}` → `src/app/demo/pages/authentication/auth-login/`
 - `auth.scss` (original restaurado) → `src/app/demo/pages/authentication/`
@@ -160,7 +160,7 @@ Substitua a tela de login pelo esqueleto PT-BR (arquivos em
 Características: sem abas Admin/User, textos em português, só o botão **Google**
 (centralizado), rodapé **Home** (esquerda) + **Contato**, campos **pré-preenchidos**
 (demo: admin@gmail.com / Admin@123) e mensagem de erro localizada
-("Verifique o email e a senha"). Ver detalhes em `generated/README.md`.
+("Verifique o email e a senha"). Ver detalhes em `skeleton/README.md`.
 
 ## Validação
 

@@ -1,7 +1,9 @@
-# Tela inicial (casca em branco) — projeto Angular novo
+# Skeleton — modelos canônicos da casca inicial
 
-Saída do comando `/tela-inicial` para o **Caso B** (projeto vazio). Entrega o
-**esqueleto de arranque** de um sistema Mantis, sem conteúdo de demonstração:
+**Modelos canônicos** aplicados pelo comando `/tela-inicial` (**não** são
+descartáveis — fazem parte da config e devem ser copiados junto com `.claude/`,
+`CLAUDE.md` e `docs/`). Entregam o **esqueleto de arranque** de um sistema Mantis
+(Caso B, projeto vazio), sem conteúdo de demonstração:
 
 - **Barra superior** + **menu lateral retrátil vazio** + **área central vazia**.
 
@@ -18,7 +20,7 @@ completo de _manter / remover / editar / dependências_ está em
 Estes são os arquivos que você edita/cria (o restante do layout vem do template):
 
 ```
-generated/shell/
+skeleton/shell/
 ├── navigation.ts             → theme/layout/admin-layout/navigation/navigation.ts   (SUBSTITUI: menu vazio)
 ├── app-routing.module.ts     → app/app-routing.module.ts                            (SUBSTITUI: rotas enxutas)
 ├── styles.scss               → src/styles.scss                                       (SUBSTITUI: sem plugins de demo)
@@ -67,6 +69,6 @@ retrátil, porém sem itens.
 
 ## Observação sobre este repositório
 
-Não copiamos o subsistema de layout do Mantis para dentro de `generated/` (seria
+Não copiamos o subsistema de layout do Mantis para dentro de `skeleton/` (seria
 apenas duplicar o `template-reference/`). Os arquivos aqui são só os **autorais**
 da casca; o layout/tema/shared vêm da sua base Mantis, conforme o manifesto.

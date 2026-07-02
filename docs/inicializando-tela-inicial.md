@@ -65,11 +65,14 @@ $proj = "C:\Development\IALab\ClaudeAI\ProjetoUIDeveloper\shell-test"
 Copy-Item -Recurse -Force "$cfg\.claude"   $proj
 Copy-Item          -Force "$cfg\CLAUDE.md" $proj
 Copy-Item -Recurse -Force "$cfg\docs"      $proj
+Copy-Item -Recurse -Force "$cfg\skeleton"  $proj
 ```
 
-> **Não** copie `template-reference\` nem `generated\`: o próprio projeto de
-> teste já é a fonte Mantis (o Claude lê o `src\` dele). O `docs\shell-kit.md` é
-> essencial — o comando o consulta.
+> Copie também `skeleton\` — são os **modelos canônicos** do esqueleto (menu
+> vazio, home, rotas, styles e login PT-BR) que o `/tela-inicial` aplica.
+> **Não** copie `template-reference\`: o próprio projeto de teste já é a fonte
+> Mantis (o Claude lê o `src\` dele). O `docs\shell-kit.md` é essencial — o
+> comando o consulta.
 
 ## 4. (Opcional) Limpar o `.claude\settings.json`
 

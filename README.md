@@ -25,6 +25,7 @@ interfaces de usuário em **Angular + TypeScript** sobre o template proprietári
 | `docs/exemplos/README.md` | Mapa de arquétipos → exemplos reais do template. |
 | `docs/shell-kit.md` | Manifesto da casca inicial (manter/remover/editar + dependências). |
 | `docs/inicializando-tela-inicial.md` | Passo a passo para testar `/tela-inicial` no VSCode. |
+| `skeleton/` | **Modelos canônicos** do esqueleto (menu vazio, home, rotas, styles, login PT-BR) aplicados pelo `/tela-inicial`. |
 | `template-reference/` | Cópia enxuta do `src/` do Mantis, **só para leitura**. |
 
 ## Como usar neste repositório
@@ -40,6 +41,7 @@ interfaces de usuário em **Angular + TypeScript** sobre o template proprietári
    - `CLAUDE.md`
    - a pasta `.claude/`
    - a pasta `docs/`
+   - a pasta `skeleton/` (modelos do esqueleto usados pelo `/tela-inicial`)
 2. **Não** copie `template-reference/` para projetos de produção — ela existe só
    como base de referência aqui. Se o projeto-alvo já é um app Mantis real, o
    Claude usa o próprio `src/` do projeto como referência viva.

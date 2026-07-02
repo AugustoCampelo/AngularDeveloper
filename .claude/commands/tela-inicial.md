@@ -67,7 +67,7 @@ _manter / remover / editar_ está em **`docs/shell-kit.md`** — siga-o.
    `.settings`, troque `animation: anim-rotate 2s infinite linear;` por
    `animation: none;` (a engrenagem da barra superior para de girar).
 
-10. **Login esqueleto PT-BR:** aplique os arquivos de `generated/shell/login/`
+10. **Login esqueleto PT-BR:** aplique os arquivos de `skeleton/shell/login/`
     (ver `docs/shell-kit.md` → "Login esqueleto"): `auth-login.component.{ts,html,scss}`
     e o `auth.scss` original. Sem abas Admin/User, textos PT, só Google, campos
     pré-preenchidos e erro localizado.
