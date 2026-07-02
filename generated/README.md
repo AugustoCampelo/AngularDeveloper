@@ -22,11 +22,30 @@ generated/shell/
 ├── navigation.ts             → theme/layout/admin-layout/navigation/navigation.ts   (SUBSTITUI: menu vazio)
 ├── app-routing.module.ts     → app/app-routing.module.ts                            (SUBSTITUI: rotas enxutas)
 ├── styles.scss               → src/styles.scss                                       (SUBSTITUI: sem plugins de demo)
-└── home/                      → src/app/demo/home/                                    (NOVO: centro vazio)
-    ├── home.component.ts
-    ├── home.component.html
-    └── home.component.scss
+├── home/                      → src/app/demo/home/                                    (NOVO: centro vazio)
+│   ├── home.component.ts
+│   ├── home.component.html
+│   └── home.component.scss
+└── login/                     → login esqueleto (PT-BR, simplificado)
+    ├── auth-login.component.ts    → src/app/demo/pages/authentication/auth-login/    (SUBSTITUI)
+    ├── auth-login.component.html  → .../auth-login/                                   (SUBSTITUI)
+    ├── auth-login.component.scss  → .../auth-login/                                   (SUBSTITUI)
+    └── auth.scss                  → src/app/demo/pages/authentication/auth.scss       (RESTAURA o original)
 ```
+
+### Login esqueleto (`login/`)
+
+Versão PT-BR/simplificada da tela de login: **sem** abas Admin/User, textos em
+português, **só o botão Google** (centralizado), rodapé com **Home** (à esquerda)
+e **Contato**. O `auth.scss` aqui é o **original** do Mantis — use-o para
+restaurar caso o strip o remova (não fabrique um substituto). O ícone de mostrar/
+ocultar senha foi reposicionado via wrapper `.position-relative` (robusto, sem
+offset fixo em pixels).
+
+> ⚠️ Os links **"Não possui uma conta?"** (`/register`) e **"Esqueceu a senha?"**
+> (`/forgot-password`) apontam para páginas removidas na casca — só o texto foi
+> traduzido, conforme pedido. Se for usá-los, re-inclua essas telas; senão,
+> transforme-os em placeholder/remova.
 
 ## Passo a passo (resumo)
 

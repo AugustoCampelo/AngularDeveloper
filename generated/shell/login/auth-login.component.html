@@ -1,0 +1,113 @@
+<div class="auth-main">
+  <div class="auth-wrapper v3">
+    <div class="auth-form">
+      <div class="auth-header">
+        <a href="javascript:"><img src="assets/images/logo-dark.svg" alt="theme logo" /></a>
+      </div>
+      <div class="my-5">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+              <h3 class="mb-0"><b>Login</b></h3>
+              <a [routerLink]="[this.authenticationService.isLoggedIn() ? '/auth/register' : '/register']" class="link-primary">
+                Não possui uma conta?
+              </a>
+            </div>
+            <form (ngSubmit)="onSubmit()">
+              <div class="form-group mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" class="form-control" placeholder="Digite o email" [field]="loginForm.email" />
+                @if (submitted && loginForm.email().errors()) {
+                  <div class="invalid-feedback">
+                    @if (loginForm.email().errors().required) {
+                      <div>Email é obrigatório</div>
+                    }
+                  </div>
+                }
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label" for="password">Senha</label>
+                <div class="position-relative">
+                  @if (!showPassword) {
+                    <input
+                      type="password"
+                      id="password"
+                      class="form-control"
+                      [field]="loginForm.password"
+                      [class.is-invalid]="submitted && loginForm.password().error"
+                      placeholder="Digite a senha"
+                    />
+                  } @else {
+                    <input
+                      type="text"
+                      id="password"
+                      class="form-control"
+                      [field]="loginForm.password"
+                      [class.is-invalid]="submitted && loginForm.password().error"
+                      placeholder="Digite a senha"
+                    />
+                  }
+                  <i
+                    antIcon
+                    theme="outline"
+                    type="{{ showPassword ? 'eye' : 'eye-invisible' }}"
+                    id="togglePassword"
+                    (click)="togglePasswordVisibility()"
+                  ></i>
+                </div>
+                @if (submitted && loginForm.password().errors()) {
+                  <div class="invalid-feedback">
+                    @if (loginForm.password().errors().required) {
+                      <div>Senha é obrigatória</div>
+                    }
+                  </div>
+                }
+              </div>
+              <div class="d-flex mt-1 justify-content-between">
+                <div class="form-check">
+                  <input class="form-check-input input-primary" type="checkbox" id="customCheckc1" checked />
+                  <label class="form-check-label text-muted" for="customCheckc1">Manter logado</label>
+                </div>
+                <a
+                  [routerLink]="[this.authenticationService.isLoggedIn() ? '/auth/forgot-password' : '/forgot-password']"
+                  class="text-primary"
+                >
+                  Esqueceu a senha?
+                </a>
+              </div>
+              <div class="d-grid mt-4">
+                <button class="btn btn-primary" type="submit">Login</button>
+              </div>
+              @if (error) {
+                <div class="alert alert-danger mt-3 mb-0">{{ error }}</div>
+              }
+            </form>
+            <div class="saprator mt-3">
+              <span>Login com</span>
+            </div>
+            <div class="row justify-content-center">
+              @for (platform of socialMedia; track platform.name) {
+                <div class="col-sm-6">
+                  <div class="d-grid">
+                    <button type="button" class="btn mt-2 btn-light-primary bg-light social-button">
+                      <img [src]="'assets/images/authentication/' + platform.logo" [alt]="platform.name + ' logo'" />
+                      <span class="d-none d-sm-inline-block">{{ platform.name }}</span>
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="auth-footer row">
+        <div class="col my-1">
+          <ul class="list-inline footer-link mb-0">
+            <li class="list-inline-item me-4"><a href="javascript:">Home</a></li>
+            <li class="list-inline-item"><a href="javascript:">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
