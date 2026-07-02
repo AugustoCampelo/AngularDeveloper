@@ -35,10 +35,10 @@ export class AuthLoginComponent implements OnInit {
   loading = false;
   returnUrl!: string;
 
-  // Signal holding the form data
+  // Signal holding the form data — pre-filled with demo credentials to speed up development.
   private readonly loginData = signal<LoginData>({
-    email: '',
-    password: ''
+    email: 'admin@gmail.com',
+    password: 'Admin@123'
   });
 
   // Create the signal form based on loginData signal
@@ -86,8 +86,9 @@ export class AuthLoginComponent implements OnInit {
       next: () => {
         this.router.navigate([DASHBOARD_PATH]);
       },
-      error: (error) => {
-        this.error = error;
+      error: () => {
+        // The mock API returns an English message; show a localized one on the client.
+        this.error = 'Verifique o email e a senha';
         this.loading = false;
         this.cd.detectChanges();
       }

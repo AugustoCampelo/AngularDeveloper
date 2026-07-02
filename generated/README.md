@@ -40,7 +40,10 @@ português, **só o botão Google** (centralizado), rodapé com **Home** (à esq
 e **Contato**. O `auth.scss` aqui é o **original** do Mantis — use-o para
 restaurar caso o strip o remova (não fabrique um substituto). O ícone de mostrar/
 ocultar senha foi reposicionado via wrapper `.position-relative` (robusto, sem
-offset fixo em pixels).
+offset fixo em pixels). Campos **pré-preenchidos** com as credenciais demo
+(admin@gmail.com / Admin@123) para agilizar o desenvolvimento; a mensagem de erro
+é **localizada no cliente** ("Verifique o email e a senha") — a API mock externa
+retorna a versão em inglês, que não dá para editar no template.
 
 > ⚠️ Os links **"Não possui uma conta?"** (`/register`) e **"Esqueceu a senha?"**
 > (`/forgot-password`) apontam para páginas removidas na casca — só o texto foi
