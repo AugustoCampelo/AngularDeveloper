@@ -24,6 +24,12 @@ template.
    compartilhados (`theme/shared/components`, `theme/shared/service`) antes de
    criar algo novo.
 
+> **Eficiência de contexto (tokens):** `template-reference/` é grande (~5 MB).
+> **Não** o leia por inteiro nem faça `Read` de arquivos enormes "por garantia".
+> Use `Grep`/`Glob` para localizar e faça `Read` **só** dos arquivos do exemplo
+> padrão-ouro indicado em `docs/exemplos/README.md`. Leia apenas a(s) regra(s)
+> relevante(s) à tarefa. Prefira `Edit` a reescrever arquivos inteiros.
+
 ## Como construir
 
 - Aplique a separação **MVC**: View (html/scss) burra, Controller

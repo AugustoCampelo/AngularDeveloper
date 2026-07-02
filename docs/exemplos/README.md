@@ -51,6 +51,11 @@ Padrão: Reactive Forms por default; signal forms em telas novas quando coerente
 - `demo/dashboard/` — dashboards padrão do template.
 - Wrapper de chart: `theme/shared/apexchart/`.
 
+> ⚠️ Num projeto criado pelo `/tela-inicial`, os wrappers `theme/shared/apexchart/`
+> e as libs `ng-apexcharts`/`apexcharts` foram **removidos** na casca. Antes de
+> gerar o 1º dashboard, **re-adicione** essas libs (`npm i ng-apexcharts apexcharts
+> --legacy-peer-deps`) e traga/gere os wrappers de chart necessários.
+
 Padrão: cada KPI/gráfico é um **componente presentational** dentro de
 `components/`, orquestrado por um container.
 
